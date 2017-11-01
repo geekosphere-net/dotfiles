@@ -8,9 +8,9 @@ echo "Updating package lists..."
 sudo $PKG_MANAGER update
 # zsh install
 echo ''
-echo "Now installing zsh..."
+echo "Now installing zsh +..."
 echo ''
-sudo $PKG_MANAGER install zsh -y
+sudo $PKG_MANAGER install vim curl wget less zsh -y
 
 # Installing git completion
 echo ''
