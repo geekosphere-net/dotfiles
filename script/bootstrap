@@ -165,7 +165,7 @@ else
 fi
 
 # symlink .dotfiles bin to ~
-ln -s $HOME/.dotfiles/bin $HOME/bin
+[[ -d $HOME/.dotfiles/bin ]] && ln -s $HOME/.dotfiles/bin $HOME/bin
 
 # symlink .dotfiles tmux to ~
 #ln -s $HOME/.dotfiles/tmux $HOME/.tmux
