@@ -82,18 +82,3 @@ else
 fi
 
 
-# Set default shell to zsh
-echo ''
-read -p "Do you want to change your default shell? y/n" -n 1 -r
-echo ''
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	echo "Now setting default shell..."
-    chsh -s $(which zsh); exit 0
-    if [[ $? -eq 0 ]]
-    then
-        echo "Successfully set your default shell to zsh..."
-    else
-        echo "Default shell not set successfully..." >&2
-fi
-
