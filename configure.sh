@@ -49,36 +49,17 @@ wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolor
 mv dircolors.256dark .dircolors
 
 # Pull down personal dotfiles
+echo "Now pulling down geekosphere-net dotfiles..."
+git clone https://github.com/geekosphere-net/dotfiles.git ~/.dotfiles
 echo ''
-read -p "Do you want to use geekosphere-net's dotfiles? y/n" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
+cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
+echo ''
+echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
+if [[ $? -eq 0 ]]
 then
-    echo ''
-	echo "Now pulling down jldeen dotfiles..."
-	git clone https://github.com/geekosphere-net/dotfiles.git ~/.dotfiles
-	echo ''
-	cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
-	echo ''
-	echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
-    if [[ $? -eq 0 ]]
-    then
-        echo "Successfully configured your environment with geekosphere-net's dotfiles..."
-    else
-        echo "geekosphere-net's dotfiles were not applied successfully..." >&2
-fi
-else 
-	echo ''
-    echo "You chose not to apply geekosphere-net's dotfiles. You will need to configure your environment manually..."
-	echo ''
-	echo "Setting defaults for .zshrc and .bashrc..."
-	echo ''
-	echo "source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-syntax-highlighting to .zshrc..."
-	echo ''
-	echo "source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-autosuggestions to .zshrc..."
-	echo ''
-	echo "source $HOME/.git-completion.bash" >> ${ZDOTDIR:-$HOME}/.bashrc && echo "added git-completion to .bashrc..."
-	
+	echo "Successfully configured your environment with geekosphere-net's dotfiles..."
+else
+	echo "geekosphere-net's dotfiles were not applied successfully..." >&2
 fi
 
 
