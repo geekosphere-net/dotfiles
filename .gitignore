@@ -1,0 +1,4 @@
+ssh-symlink/*.key
+ssh-symlink/*.id_rsa
+ssh-symlink/*.id_dsa
+ssh-symlink/*.pem
