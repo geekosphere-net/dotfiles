@@ -1,1 +1,1 @@
-[ -s "$NVM_DIR/bash_completion.sh" ] && source $NVM_DIR/bash_completion.sh
+[ -s "$NVM_DIR/bash_completion" ] && source $NVM_DIR/bash_completion
