@@ -10,7 +10,7 @@ sudo $PKG_MANAGER update
 echo ''
 echo "Now installing zsh +..."
 echo ''
-sudo $PKG_MANAGER install vim curl wget less figlet zsh -y
+sudo $PKG_MANAGER install -y vim curl wget less figlet zsh git git-flow net-tools 
 
 # Installing git completion
 echo ''
