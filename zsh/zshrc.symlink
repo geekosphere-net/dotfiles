@@ -37,7 +37,7 @@ done
 
 unset config_files
 
-[[ -f ~/.dircolors && $+commands[dircolors] ]] && eval `dircolors ~/.dircolors`
+[[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
 
 umask 0022
 
