@@ -62,4 +62,7 @@ else
 	echo "geekosphere-net's dotfiles were not applied successfully..." >&2
 fi
 
+# VMware symlinks
+[[ -d /mnt/hgfs/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
+[[ -d /mnt/hgfs/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
