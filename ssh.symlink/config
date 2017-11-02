@@ -1,0 +1,617 @@
+TCPKeepAlive no
+
+ServerAliveInterval 20
+ServerAliveCountMax 10
+
+ForwardX11 yes
+ForwardX11Trusted yes
+
+IdentityFile ~/.ssh/LevTech.id_dsa
+IdentityFile ~/.ssh/Generic.id_dsa
+IdentityFile ~/.ssh/Generic.id_rsa
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+IdentityFile ~/.ssh/bluemix.pem
+PubkeyAcceptedKeyTypes=+ssh-dss
+
+
+#
+# BitBucket
+##################################
+Host bitbucket.org
+HostName bitbucket.org
+IdentityFile ~/.ssh/bitbucket
+
+Host github.lt
+HostName github.com
+IdentityFile ~/.ssh/bitbucket
+
+Host github.com
+HostName github.com
+IdentityFile ~/.ssh/github
+
+
+#
+# LT Servers
+##################################
+
+Host ltwiki
+HostName wiki.LeveragingTechnology.com
+User leveragingwiki
+
+
+#
+# SoftLayer
+##################################
+
+Host svn
+HostName 184.173.130.58
+User drichards
+
+Host clearquest
+HostName 184.173.130.58
+User drichards
+
+Host iibdv01
+HostName 184.173.169.130
+User drichards
+
+Host iibdv02
+HostName 184.173.169.131
+User drichards
+
+
+
+# end LT
+
+
+#
+# My VMs
+##################################
+
+Host testvm03
+HostName testvm03
+User wasuser
+
+Host testvm05
+HostName testvm05
+User user
+
+Host testvm07
+HostName testvm07
+User user
+
+Host testvm08
+HostName testvm08
+User virtuser
+
+Host testvm09
+HostName 192.168.142.19
+User virtuser
+
+Host testvm10
+HostName 192.168.142.20
+User virtuser
+
+Host testvm11
+HostName testvm11
+User virtuser
+
+Host testvm12
+HostName testvm12
+User virtuser
+
+Host testvm13
+HostName testvm13
+User virtuser
+
+Host testvm14
+HostName testvm14
+User virtuser
+
+Host testvm15
+HostName testvm15
+User virtuser
+
+Host testvm16
+HostName testvm16
+User virtuser
+
+Host testvm18
+HostName testvm18
+User virtuser
+
+Host testvm19
+HostName testvm19
+User virtuser
+
+Host nagios
+HostName nagios
+User root
+
+Host sdx01
+HostName sdx01
+User user
+
+Host sdx02
+HostName sdx02
+User user
+
+Host docker
+HostName 192.168.142.10
+User user
+
+Host docker2
+HostName 192.168.142.11
+User user
+
+Host docker3
+HostName 192.168.142.12
+User user
+
+Host eclipse
+HostName 192.168.142.129
+User user
+
+# end My VMs
+
+
+
+
+#
+# Health Now
+##################################
+
+Host hndev
+HostName blwpdv01.blues.healthnow.local
+User u06618
+
+# end HNNY
+
+
+#
+# Sodexo Servers
+##################################
+
+Host sdx-cc-active
+HostName sdxbf-m24n5.na.sdxcorp.net
+User wsnyder1
+
+Host sdx-cc-passive
+HostName sdxbf-m23n5.na.sdxcorp.net
+User wsnyder1
+
+Host sdx-mb-active
+HostName sdxbf-m23n6.na.sdxcorp.net
+User wsnyder1
+
+Host sdx-mb-passive
+HostName sdxbf-m24n6.na.sdxcorp.net
+User wsnyder1
+
+# end SDX
+
+
+#
+# IHA
+##################################
+
+Host mbd01
+HostName mbd01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbd01old
+HostName mbd01old.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbqbt01
+HostName mbqbt01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbqbt01old
+HostName mbqbt01old.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbqit01
+HostName mbqit01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbqbit01
+HostName mbqbit01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmx01
+HostName mbmx01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmcc01
+HostName mbmcc01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmcc02
+HostName mbmcc02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbm01
+HostName mbm01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbms01
+HostName mbms01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbm02
+HostName mbm02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbms02
+HostName mbms02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmxa01
+HostName mbmxa01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmcca01
+HostName mbmcca01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbma01
+HostName mbma01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmas01
+HostName mbmas01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbma02
+HostName mbma02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbmas02
+HostName mbmas02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpxa01
+HostName mbpxa01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpx01
+HostName mbpx01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpcc01
+HostName mbpcc01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbp01
+HostName mbp01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbps01
+HostName mbps01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbp02
+HostName mbp02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbps02
+HostName mbps02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpxa01
+HostName mbpxa01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpcca01
+HostName mbpcca01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpa01
+HostName mbpa01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpas01
+HostName mbpas01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpa02
+HostName mbpa02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbpas02
+HostName mbpas02.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host mbdci01
+HostName mbdci01.independenthealth.com
+User root
+PubkeyAuthentication no
+
+Host d01qumbm03
+HostName d01qumbm03.independenthealth.com
+User root
+PubkeyAuthentication no
+Host mbm03
+HostName d01qumbm03.independenthealth.com
+User drichard
+PubkeyAuthentication no
+
+# end IHA
+
+
+#
+# IBM VLP
+##################################
+
+Host vlp-gateway
+HostName 198.81.193.104
+User u0011078
+
+Host vlp-vpn
+HostName 198.81.193.16
+User u0011078
+
+
+Host vlp01
+HostName vlp01
+User u0011078
+
+Host vlp02
+HostName vlp02
+User u0011078
+
+# end IBM VLP
+
+
+##################################
+# Fontier
+##################################
+
+Host lnx07
+HostName nyrofclnx07.czncorp.com
+User drr256
+
+Host lnx36
+HostName nyrofclnx36.czncorp.com
+User drr256
+
+Host uat01
+HostName esbwpsuat01.czncorp.com
+User drr256
+
+Host prd01
+HostName esbappprd01.czncorp.com
+User drr256
+
+Host prd02
+HostName esbappprd02.czncorp.com
+User drr256
+
+Host prd03
+HostName esbappprd03.czncorp.com
+User drr256
+
+Host prd09
+HostName esbappprd09.czncorp.com
+User drr256
+
+Host websphrtst1
+HostName websphrtst1.czncorp.com
+User drr256
+
+Host websphrprd1
+HostName websphrprd1.czncorp.com
+User drr256
+
+Host cvs
+HostName j2devint.czncorp.com
+User drr256
+
+Host websphrprd1
+HostName websphrprd1.czncorp.com
+User drr256
+
+Host pv01
+HostName busropv01.czncorp.com
+User drr256
+
+Host pv02
+HostName busropv02.czncorp.com
+User drr256
+
+Host pv03
+HostName busropv03.czncorp.com
+User drr256
+
+Host pv04
+HostName busropv04.czncorp.com
+User drr256
+
+Host pv05
+HostName busropv05.czncorp.com
+User drr256
+
+Host pv06
+HostName busropv06.czncorp.com
+User drr256
+
+Host pv07
+HostName busropv07.czncorp.com
+User drr256
+
+Host mqdv01
+HostName wmqrodv01.czncorp.com
+User drr256
+
+Host mqdv02
+HostName wmqrodv02.czncorp.com
+User drr256
+
+Host mqdv03
+HostName wmqrodv03.czncorp.com
+User drr256
+
+Host wpsdv01
+HostName wpsrodv01.czncorp.com
+User drr256
+
+Host wpsdv02
+HostName wpsrodv02.czncorp.com
+User drr256
+
+Host build.lnx36
+HostName nyrofclnx36.czncorp.com
+User build
+IdentityFile ~/.ssh/generic_build
+
+Host build.dvm
+HostName 10.161.67.165
+User user
+IdentityFile ~/.ssh/generic_build
+
+##################################
+# End Frontier
+##################################
+
+
+
+##################################
+# IBM SmartCloud Enterprise
+##################################
+
+Host ltcloudproxy
+HostName 170.224.163.251
+#HostName 10.4.1.2
+User idcuser
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+LocalForward localhost:5901 localhost:5901
+
+Host ltcloudbpm8
+HostName 10.4.1.4
+User idcuser
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+LocalForward localhost:5901 localhost:5901
+
+Host ltcloudbpm8std
+HostName 10.4.1.5
+User idcuser
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+LocalForward localhost:5901 localhost:5901
+
+Host ltcloudmb8
+HostName 10.4.1.3
+User idcuser
+#IdentityFile ~/.ssh/LevTech.id_dsa
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+LocalForward localhost:5901 localhost:5901
+
+Host ltcloudmb8-2
+HostName 10.4.1.7
+User idcuser
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+LocalForward localhost:5901 localhost:5901
+
+##################################
+
+##################################
+# end IBM SmartCloud Enterprise
+##################################
+
+
+#
+# Steve
+##################################
+
+Host ltpi
+HOstName 192.168.22.125
+User pi
+
+Host steveVM
+HostName 67.253.195.117
+Port 22
+User steve
+LocalForward localhost:5901 localhost:5901
+
+Host steve120
+HostName 67.253.195.117
+Port 2202
+User root
+LocalForward localhost:5901 localhost:5901
+
+Host steve914
+HostName 67.253.195.117
+Port 2200
+User root
+LocalForward localhost:5901 localhost:5901
+
+
+##################################
+# end Steve
+##################################
+
+
+#
+# Xerox
+##################################
+
+Host xrx120
+HostName xrx120
+User virtuser
+
+Host xrx914
+HostName xrx914
+User virtuser
+
+Host xrxStage
+HostName 13.129.6.171
+User uswu56380
+
+Host xrxProd
+HostName 13.129.6.23
+User uswu56380
+
+Host xrxStageDr
+HostName 13.145.126.207
+User uswu56380
+
+Host xrxProdDr
+HostName 13.145.126.208
+User uswu56380
+
+
+#
+# End - Xerox
+##################################
