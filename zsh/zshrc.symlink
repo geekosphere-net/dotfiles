@@ -1,7 +1,7 @@
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="fishy"
 ENABLE_CORRECTION="true"
-plugins=(git git-flow-avh docker docker-compose zsh-completions zsh-autosuggestions zsh-syntax-highlighting )
+plugins=(git git-flow-avh docker docker-compose zsh-completions zsh-autosuggestions )
 
 source $ZSH/oh-my-zsh.sh
 
