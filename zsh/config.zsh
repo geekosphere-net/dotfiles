@@ -1,7 +1,9 @@
 export VISUAL=vim
 export EDITOR=vim
-
 bindkey -e
+
+export ZSH_THEME_TERM_TAB_TITLE_IDLE="%100<..<%n@%m:%~%<<"
+export ZSH_THEME_TERM_TITLE_IDLE="%100<..<%n@%m:%~%<<"
 
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS
