@@ -148,6 +148,10 @@ Host docker3
 HostName 192.168.142.12
 User user
 
+Host node
+HostName 192.168.142.14
+User user
+
 Host eclipse
 HostName 192.168.142.129
 User user
