@@ -39,5 +39,9 @@ unset config_files
 
 [[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
 
+# Local customizations
+[[ -f ~/.zshrc.local ]] && sourch ~/.zshrc.local
+
+
 umask 0022
 
