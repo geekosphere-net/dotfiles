@@ -2,6 +2,7 @@ ssh.symlink/*.key
 ssh.symlink/*.id_rsa
 ssh.symlink/*.id_dsa
 ssh.symlink/*.pem
+ssh.symlink/*.ppk
 ssh.symlink/bluemix.json
 ssh.symlink/bitbucket
 ssh.symlink/github
