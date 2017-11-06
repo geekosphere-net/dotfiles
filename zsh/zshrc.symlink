@@ -1,15 +1,15 @@
+# Local customizations
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
-export ZSH=~/.oh-my-zsh
-
-ZSH_THEME="fishy"
-
-ENABLE_CORRECTION="true"
-
+# Setup Oh-My-Zsh
+: ${ZSH:=~/.oh-my-zsh}
+: ${ZSH_THEME:="fishy"}
+: ${ENABLE_CORRECTION:="true"}
 plugins=(git git-flow-avh docker docker-compose zsh-completions zsh-autosuggestions zsh-navigation-tools)
-
 source $ZSH/oh-my-zsh.sh
 
-# Load all of the ~/.dotfiles
+
+# Load all of the ~/.dotfiles customizations
 
 typeset -U config_files
 config_files=(~/.dotfiles/**/*.zsh)
@@ -37,11 +37,8 @@ done
 
 unset config_files
 
+# dircolors
 [[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
-
-# Local customizations
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
 
 umask 0022
 
