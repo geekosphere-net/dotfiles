@@ -1,10 +1,10 @@
 [Unit]
-Description=Traefik Reverse Proxy
-After=docker.service
-Requires=docker.service
+Description=DNS In Docker
+After=docker.service vmware-tools.service
+Requires=docker.service vmware-tools.service
 
 [Service]
-ExecStart=/usr/local/bin/systemd-docker name=bind run -rm --name "bind" -p 53:53/tcp -p 53:53/udp --label traefik.frontend.rule=Host:bind.hcc.org --label traefik.port=10000 --label traefik.protocol=https --volume /mnt/c/IBM/DockerVolumes/bind:/data --env ROOT_PASSWORD=Leveraging101 sameersbn/bind
+ExecStart=/usr/local/bin/systemd-docker run --rm --name "bind" -p 53:53/tcp -p 53:53/udp --label traefik.frontend.rule=Host:bind.hcc.org --label traefik.port=10000 --label traefik.protocol=https --volume /mnt/c/IBM/DockerVolumes/bind:/data --env ROOT_PASSWORD=Leveraging101 sameersbn/bind
 Type=notify
 NotifyAccess=all
 TimeoutStartSec=120
