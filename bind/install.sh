@@ -13,6 +13,7 @@ fi
 #
 # Copy over the config files and autostart the container
 
+cp ./binddocker.service /etc/systemd/system/binddocker.service
 systemctl enable binddocker.service
 systemctl start binddocker.service
 
