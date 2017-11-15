@@ -4,7 +4,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-ExecStart=/usr/local/bin/systemd-docker --cgroups name=systemd run -rm --name "traefik" -p 80:80 -p 443:443 -v /opt/traefik/traefik.toml:/traefik.toml:ro -v /opt/traefik/certs/hcc.org.crt:/etc/ssl/certs/hcc.org.crt:ro -v /opt/traefik/certs/hcc.org.key:/etc/ssl/certs/hcc.org.key:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label "traefik.frontend.rule=Host:traefik-internal.hcc.org" traefik:latest
+ExecStart=/usr/local/bin/systemd-docker --cgroups name=systemd run --rm --name "traefik" -p 80:80 -p 443:443 -v /opt/traefik/traefik.toml:/traefik.toml:ro -v /opt/traefik/certs/hcc.org.crt:/etc/ssl/certs/hcc.org.crt:ro -v /opt/traefik/certs/hcc.org.key:/etc/ssl/certs/hcc.org.key:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label "traefik.frontend.rule=Host:traefik-internal.hcc.org" traefik:latest
 Type=notify
 NotifyAccess=all
 TimeoutStartSec=120
