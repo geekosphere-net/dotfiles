@@ -19,15 +19,15 @@ PubkeyAcceptedKeyTypes=+ssh-dss
 ##################################
 Host bitbucket.org
 HostName bitbucket.org
-IdentityFile ~/.ssh/bitbucket
+IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.lt
 HostName github.com
-IdentityFile ~/.ssh/bitbucket
+IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.com
 HostName github.com
-IdentityFile ~/.ssh/github
+IdentityFile ~/.ssh/github.pem
 
 
 #
