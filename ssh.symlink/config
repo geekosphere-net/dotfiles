@@ -19,15 +19,15 @@ PubkeyAcceptedKeyTypes=+ssh-dss
 ##################################
 Host bitbucket.org
 HostName bitbucket.org
-IdentityFile ~/.ssh/bitbucket
+IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.lt
 HostName github.com
-IdentityFile ~/.ssh/bitbucket
+IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.com
 HostName github.com
-IdentityFile ~/.ssh/github
+IdentityFile ~/.ssh/github.pem
 
 
 #
@@ -68,84 +68,12 @@ User drichards
 # My VMs
 ##################################
 
-Host testvm03
-HostName testvm03
-User wasuser
-
-Host testvm05
-HostName testvm05
-User user
-
-Host testvm07
-HostName testvm07
-User user
-
-Host testvm08
-HostName testvm08
-User virtuser
-
-Host testvm09
-HostName 192.168.142.19
-User virtuser
-
-Host testvm10
-HostName 192.168.142.20
-User virtuser
-
-Host testvm11
-HostName testvm11
-User virtuser
-
-Host testvm12
-HostName testvm12
-User virtuser
-
-Host testvm13
-HostName testvm13
-User virtuser
-
 Host testvm14
-HostName testvm14
+HostName 192.168.142.24
 User virtuser
-
-Host testvm15
-HostName testvm15
-User virtuser
-
-Host testvm16
-HostName testvm16
-User virtuser
-
-Host testvm18
-HostName testvm18
-User virtuser
-
-Host testvm19
-HostName testvm19
-User virtuser
-
-Host nagios
-HostName nagios
-User root
-
-Host sdx01
-HostName sdx01
-User user
-
-Host sdx02
-HostName sdx02
-User user
 
 Host docker
 HostName 192.168.142.10
-User user
-
-Host docker2
-HostName 192.168.142.11
-User user
-
-Host docker3
-HostName 192.168.142.12
 User user
 
 Host node
@@ -154,6 +82,10 @@ User user
 
 Host eclipse
 HostName 192.168.142.129
+User user
+
+Host neon
+HostName 192.168.142.13
 User user
 
 # end My VMs
