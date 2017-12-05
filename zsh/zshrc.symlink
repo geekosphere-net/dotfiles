@@ -42,4 +42,5 @@ unset config_files
 
 umask 0022
 set bell-style none
+[[ -n ${TMUX} ]] && export TERM="screen-256color"
 
