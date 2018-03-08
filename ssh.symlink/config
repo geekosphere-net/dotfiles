@@ -59,6 +59,19 @@ Host iibdv02
 HostName 184.173.169.131
 User drichards
 
+#
+# LT AWS
+
+Host ars-micro
+HostName ec2-52-15-240-24.us-east-2.compute.amazonaws.com
+User ec2-user
+IdentityFile ~/.ssh/LevTech.AWS.pem
+
+Host ars-nodered
+HostName ec2-52-15-151-153.us-east-2.compute.amazonaws.com
+User ec2-user
+IdentityFile ~/.ssh/LevTech.AWS.pem
+
 
 
 # end LT
