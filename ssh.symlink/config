@@ -93,6 +93,10 @@ Host node
 HostName 192.168.142.14
 User user
 
+Host iibv10
+HostName 192.168.142.15
+User user
+
 Host eclipse
 HostName 192.168.142.129
 User user
