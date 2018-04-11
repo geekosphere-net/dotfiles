@@ -1,4 +1,4 @@
-#
+# 
 # Global rules
 
 debug = false
@@ -18,23 +18,21 @@ defaultEntryPoints = ["http", "https"]
  address = ":443"
  [entryPoints.https.tls]
    [[entryPoints.https.tls.certificates]]
-    CertFile = "/etc/ssl/certs/hcc.org.crt"
-    KeyFile  = "/etc/ssl/certs/hcc.org.key"
+    CertFile = "/etc/ssl/certs/leveraging.com.crt"
+    KeyFile  = "/etc/ssl/certs/leveraging.com.key"
 
 #
 # Web Admin tool
 
 [web]
  address = ":8080"
-# CertFile = "/etc/ssl/certs/hcc.org.crt"
-# KeyFIle = "hcc.org.key"
 
 
 #
 # Docker support
 
 [docker]
- domain = "hcc.org"
+ domain = "leveraging.com"
  watch = true
 
 
@@ -46,51 +44,34 @@ defaultEntryPoints = ["http", "https"]
 
 #
 # Test endpoint
- [backends.test-backend]
- [backends.test-backend.servers.server1]
-  url = "https://www.google.com/"
-
-#
-# Trafik static endpoint to bypass the RPS on 80/443
- [backends.traefik-docker-admin]
- [backends.traefik-docker-admin.servers.server1]
-  url = "http://172.17.0.2:8080"
-  #url = "http://traefik:8080"
-  #url = "http://ad9535a61f27:8080"
-  #url = "http://traefik.hcc.org:8080"
-  #url = "http://localhost:8080"
+# [backends.test-backend]
+# [backends.test-backend.servers.server1]
+#  url = "https://www.google.com/"
 
 #
 # APIC API endpoint into datapower
- [backends.apic-docker]
- [backends.apic-docker.servers.server1]
-  url = "https://datapower:443"
+# [backends.apic-docker]
+# [backends.apic-docker.servers.server1]
+#  url = "https://datapower:443"
+
 
 
 [frontends]
 #
 # Test endpoint
- [frontends.test]
- backend = "test-backend"
- passHostHeader = true
- #entrypoints = ["http","https"]
- [frontends.test.routes.default]
-  rule = "Host:test.hcc.org"
-
-#
-# Trafik static endpoint to bypass the RPS on 80/443
- [frontends.traefik]
- backend = "traefik-docker-admin"
- passHostHeader = true
- [frontends.traefik.routes.default]
-  rule = "Host:traefik.hcc.org"
+# [frontends.test]
+# backend = "test-backend"
+# passHostHeader = true
+# #entrypoints = ["http","https"]
+# [frontends.test.routes.default]
+#  rule = "Host:test.leveraging.com"
 
 #
 # APIC API endpoint into datapower
- [frontends.apic-docker]
- backend = "apic-docker"
- passHostHeader = true
- entrypoints = ["https"]
- [frontends.apic-docker.routes.default]
-  rule = "Host:apic-docker.hcc.org"
+# [frontends.apic-docker]
+# backend = "apic-docker"
+# passHostHeader = true
+# entrypoints = ["https"]
+# [frontends.apic-docker.routes.default]
+#  rule = "Host:apic-docker.leverging.com"
 
