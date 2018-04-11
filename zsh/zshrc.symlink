@@ -41,4 +41,6 @@ unset config_files
 [[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
 
 umask 0022
+#set bell-style none
+[[ -n ${TMUX} ]] && export TERM="screen-256color"
 

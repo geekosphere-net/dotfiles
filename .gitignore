@@ -6,4 +6,4 @@ ssh.symlink/*.ppk
 ssh.symlink/bluemix.json
 ssh.symlink/bitbucket
 ssh.symlink/github
-ssh.symlink/known_hosts
+ssh.symlink/known_hosts*
