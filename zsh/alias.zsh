@@ -17,7 +17,8 @@ function markloop () {
                 $*
                 sleep 10
                 local secs=$(( $(date +%s) - $startT ))
-                /usr/bin/figlet -f small -Wl $(($secs%3600/60)):$(($secs%60))
+                local diff=$(printf '%d:%02d\n' $(($secs%3600/60)) $(($secs%60)) )
+                /usr/bin/figlet -f small -Wl $diff
                 echo $*
         done
 }
