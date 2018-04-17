@@ -17,5 +17,6 @@ function markloop () {
                 $*
                 sleep 10
                 /usr/bin/figlet -f small -Wl $(( $(date +%s) - $startT ))
+		echo $*
         done
 }
