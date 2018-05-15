@@ -9,3 +9,6 @@ cd
 rm -rf $BX_DIR
 unset BX_DIR
 
+bx plugin install container-registry -r Bluemix
+bx plugin install container-service -r Bluemix
+
