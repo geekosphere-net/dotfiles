@@ -1,17 +1,9 @@
-TCPKeepAlive no
-
-ServerAliveInterval 20
-ServerAliveCountMax 10
-
-ForwardX11 yes
-ForwardX11Trusted yes
-
-IdentityFile ~/.ssh/LevTech.id_dsa
-IdentityFile ~/.ssh/Generic.id_dsa
-IdentityFile ~/.ssh/Generic.id_rsa
-IdentityFile ~/.ssh/IBMcloud.id_rsa
-IdentityFile ~/.ssh/bluemix.pem
-PubkeyAcceptedKeyTypes=+ssh-dss
+##################################
+#
+# S E R V E R   L I S T
+# (defaults at bottom)
+#
+##################################
 
 
 #
@@ -71,6 +63,15 @@ Host ars-nodered
 HostName ec2-52-15-151-153.us-east-2.compute.amazonaws.com
 User ec2-user
 IdentityFile ~/.ssh/LevTech.AWS.pem
+
+
+#
+# ICP
+
+Host icpm
+HostName icp-master.leveraging.com
+User root
+IdentityFile ~/.ssh/icp.key
 
 
 
@@ -568,3 +569,23 @@ User uswu56380
 #
 # End - Xerox
 ##################################
+
+
+##################################
+#
+# D E F A U L T S
+#
+##################################
+
+TCPKeepAlive no
+ServerAliveInterval 20
+ServerAliveCountMax 10
+ForwardX11 yes
+ForwardX11Trusted yes
+IdentityFile ~/.ssh/Generic.id_dsa
+IdentityFile ~/.ssh/Generic.id_rsa
+IdentityFile ~/.ssh/IBMcloud.id_rsa
+IdentityFile ~/.ssh/bluemix.pem
+PubkeyAcceptedKeyTypes=+ssh-dss
+User user
+
