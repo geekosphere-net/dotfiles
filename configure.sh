@@ -46,7 +46,7 @@ echo ''
 echo "Now installing solarized dark WSL color scheme..."
 echo ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark .dircolors
+mv dircolors.256dark ~/.dircolors
 
 # Pull down personal dotfiles
 echo "Now pulling down geekosphere-net dotfiles..."
