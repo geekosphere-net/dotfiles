@@ -63,6 +63,6 @@ else
 fi
 
 # VMware symlinks
-[[ -d /mnt/hgfs/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
-[[ -d /mnt/hgfs/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
+[[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
+[[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
