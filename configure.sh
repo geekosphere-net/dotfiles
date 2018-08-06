@@ -46,7 +46,7 @@ echo ''
 echo "Now installing solarized dark WSL color scheme..."
 echo ''
 wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark .dircolors
+mv dircolors.256dark ~/.dircolors
 
 # Pull down personal dotfiles
 echo "Now pulling down geekosphere-net dotfiles..."
@@ -63,6 +63,6 @@ else
 fi
 
 # VMware symlinks
-[[ -d /mnt/hgfs/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
-[[ -d /mnt/hgfs/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
+[[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
+[[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
