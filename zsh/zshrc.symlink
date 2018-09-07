@@ -1,5 +1,5 @@
 # Local customizations
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.zshrc.local.pre ]] && source ~/.zshrc.local.pre
 
 # Setup Oh-My-Zsh
 : ${ZSH:=~/.oh-my-zsh}
@@ -43,4 +43,7 @@ unset config_files
 umask 0022
 #set bell-style none
 [[ -n ${TMUX} ]] && export TERM="screen-256color"
+
+# Local customizations
+[[ -f ~/.zshrc.local.post ]] && source ~/.zshrc.local.post
 
