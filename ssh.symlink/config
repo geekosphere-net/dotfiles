@@ -1,7 +1,6 @@
 ##################################
 #
 # S E R V E R   L I S T
-# (defaults at bottom)
 #
 ##################################
 
@@ -9,17 +8,18 @@
 #
 # BitBucket
 ##################################
+
 Host bitbucket.org
-HostName bitbucket.org
-IdentityFile ~/.ssh/bitbucket.pem
+ HostName bitbucket.org
+ IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.lt
-HostName github.com
-IdentityFile ~/.ssh/bitbucket.pem
+ HostName github.com
+ IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.com
-HostName github.com
-IdentityFile ~/.ssh/github.pem
+ HostName github.com
+ IdentityFile ~/.ssh/github.pem
 
 
 #
@@ -27,52 +27,39 @@ IdentityFile ~/.ssh/github.pem
 ##################################
 
 Host ltwiki
-HostName wiki.LeveragingTechnology.com
-User leveragingwiki
+ HostName wiki.LeveragingTechnology.com
+ User leveragingwiki
 
 
-#
-# SoftLayer
-##################################
-
-Host svn
-HostName 184.173.130.58
-User drichards
-
-Host clearquest
-HostName 184.173.130.58
-User drichards
-
-Host iibdv01
-HostName 184.173.169.130
-User drichards
-
-Host iibdv02
-HostName 184.173.169.131
-User drichards
 
 #
 # LT AWS
 
-Host ars-micro
-HostName ec2-52-15-240-24.us-east-2.compute.amazonaws.com
-User ec2-user
-IdentityFile ~/.ssh/LevTech.AWS.pem
+Host ars-micro-dev
+ HostName ec2-52-15-240-24.us-east-2.compute.amazonaws.com
+ User ec2-user
+ IdentityFile ~/.ssh/LevTech.AWS.pem
 
-Host ars-nodered
-HostName ec2-52-15-151-153.us-east-2.compute.amazonaws.com
-User ec2-user
-IdentityFile ~/.ssh/LevTech.AWS.pem
+Host ars-nodered-dev
+ HostName ec2-52-15-151-153.us-east-2.compute.amazonaws.com
+ User ec2-user
+ IdentityFile ~/.ssh/LevTech.AWS.pem
 
+Host ars-micro-dev2
+ HostName ec2-52-14-204-209.us-east-2.compute.amazonaws.com
+ User ec2-user
 
-#
-# ICP
+Host ars-nodered-dev2
+ HostName ec2-18-222-187-86.us-east-2.compute.amazonaws.com
+ User ec2-user
 
-Host icpm
-HostName icp-master.leveraging.com
-User root
-IdentityFile ~/.ssh/icp.key
+Host ars-micro-test
+ HostName ec2-18-220-248-150.us-east-2.compute.amazonaws.com
+ User ec2-user
 
+Host ars-nodered-test
+ HostName ec2-18-221-219-88.us-east-2.compute.amazonaws.com
+ User ec2-user
 
 
 # end LT
@@ -108,6 +95,33 @@ User user
 
 # end My VMs
 
+
+
+
+#
+# CSS Health
+##################################
+
+Host gitlab.csshealth.com
+ User git
+ HostName gitlab.csshealth.com
+ IdentityFile /home/drichards/.ssh/csshealth.id_rsa
+
+Host *.csshealth.com
+ User drichards
+ IdentityFile ~/.ssh/csshealth.id_rsa
+
+Host *.dev.csshealth.com
+ User drichards
+ IdentityFile ~/.ssh/csshealth.id_rsa
+
+Host *.stanging.csshealth.com
+ User drichards
+ IdentityFile ~/.ssh/csshealth.id_rsa
+
+Host *.internal.csshealth.com
+ User drichards
+ IdentityFile ~/.ssh/csshealth.id_rsa
 
 
 
@@ -571,21 +585,23 @@ User uswu56380
 ##################################
 
 
+
 ##################################
 #
 # D E F A U L T S
 #
 ##################################
 
-TCPKeepAlive no
-ServerAliveInterval 20
-ServerAliveCountMax 10
-ForwardX11 yes
-ForwardX11Trusted yes
-IdentityFile ~/.ssh/Generic.id_dsa
-IdentityFile ~/.ssh/Generic.id_rsa
-IdentityFile ~/.ssh/IBMcloud.id_rsa
-IdentityFile ~/.ssh/bluemix.pem
-PubkeyAcceptedKeyTypes=+ssh-dss
-User user
+Host *
+ User user
+ IdentityFile ~/.ssh/Generic.id_rsa
+ IdentityFile ~/.ssh/Generic.id_dsa
+ IdentityFile ~/.ssh/IBMcloud.id_rsa
+ IdentityFile ~/.ssh/bluemix.pem
+ TCPKeepAlive no
+ ServerAliveInterval 20
+ ServerAliveCountMax 10
+ ForwardX11 yes
+ ForwardX11Trusted yes
+ PubkeyAcceptedKeyTypes=+ssh-dss
 
