@@ -37,7 +37,9 @@ inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-"  set mouse=a
+  "set mouse=a
+  "set mouse=v
+  "set ttymouse=sgr
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -100,4 +102,16 @@ endif
 set background=dark
 let g:solarized_termtrans = 1
 colorscheme solarized
+
+" Auto toggle paste mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
 
