@@ -11,6 +11,10 @@
 
 Host bitbucket.org
  HostName bitbucket.org
+ IdentityFile ~/.ssh/lightwellinc.pem
+
+Host bitbucket.lt
+ HostName bitbucket.org
  IdentityFile ~/.ssh/bitbucket.pem
 
 Host github.lt
