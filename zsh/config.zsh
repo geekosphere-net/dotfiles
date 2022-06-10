@@ -4,6 +4,7 @@ bindkey -e
 
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%100<..<%n@%m:%~%<<"
 export ZSH_THEME_TERM_TITLE_IDLE="%100<..<%n@%m:%~%<<"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=23'
 
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS
