@@ -44,3 +44,4 @@ umask 0022
 # Local customizations
 [[ -f ~/.zshrc.local.post ]] && source ~/.zshrc.local.post
 
+true
