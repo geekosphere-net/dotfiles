@@ -1,68 +1,52 @@
-#!/bin/bash
-# Update pkg lists
+#!/usr/bin/env bash
+# Fresh VM bootstrap — installs prerequisites and sets up dotfiles.
+# Usage: bash -c "$(curl -fsSL https://raw.githubusercontent.com/geekosphere-net/dotfiles/master/configure.sh)"
 
-PKG_MANAGER=$( command -v yum || command -v apt-get ) || echo "Neither yum nor apt-get found"
-[[ -z $PKG_MANAGER ]] && exit 255
+set -e
+
+PKG_MANAGER=$(command -v apt-get || command -v yum) || { echo "Neither apt-get nor yum found"; exit 255; }
 
 echo "Updating package lists..."
 sudo $PKG_MANAGER update
-# zsh install
-echo ''
-echo "Now installing zsh +..."
-echo ''
-sudo $PKG_MANAGER install -y vim curl wget less figlet zsh git net-tools 
 
-# Installing git completion
-echo ''
-echo "Now installing git and bash-completion..."
-sudo $PKG_MANAGER install git bash-completion -y
+echo "Installing core packages..."
+sudo $PKG_MANAGER install -y vim curl wget less figlet zsh git net-tools unzip
 
-echo ''
-echo "Now configuring git-completion..."
-GIT_VERSION=`git --version | awk '{print $3}'`
-URL="https://raw.github.com/git/git/v$GIT_VERSION/contrib/completion/git-completion.bash"
-echo ''
-echo "Downloading git-completion for git version: $GIT_VERSION..."
-if ! curl "$URL" --silent --output "$HOME/.git-completion.bash"; then
-	echo "ERROR: Couldn't download completion script. Make sure you have a working internet connection." && exit 1
-fi
+# oh-my-zsh (RUNZSH=no + CHSH=no prevents it hijacking the script mid-run)
+echo "Installing oh-my-zsh..."
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# oh-my-zsh install
-echo ''
-echo "Now installing oh-my-zsh..."
-echo ''
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# oh-my-zsh custom plugins
+echo "Installing oh-my-zsh plugins..."
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+git clone https://github.com/zsh-users/zsh-completions        "${ZSH_CUSTOM}/plugins/zsh-completions"
+git clone https://github.com/zsh-users/zsh-autosuggestions    "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
 
-# oh-my-zsh plugin install
-echo ''
-echo "Now installing oh-my-zsh plugins..."
-echo ''
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+# Dircolors solarized
+echo "Installing dircolors solarized..."
+wget -qO ~/.dircolors https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 
-# Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
-wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark ~/.dircolors
-
-# Pull down personal dotfiles
-echo "Now pulling down geekosphere-net dotfiles..."
+# Clone dotfiles
+echo "Cloning dotfiles..."
 git clone https://github.com/geekosphere-net/dotfiles.git ~/.dotfiles
-echo ''
-cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
-echo ''
-echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
-if [[ $? -eq 0 ]]
-then
-	echo "Successfully configured your environment with geekosphere-net's dotfiles..."
-else
-	echo "geekosphere-net's dotfiles were not applied successfully..." >&2
-fi
 
-# VMware symlinks
+# Run bootstrap (creates *.symlink → ~/.<name> symlinks, sets up gitconfig)
+echo "Configuring symlinks..."
+cd "$HOME/.dotfiles" && script/bootstrap
+
+# vim plugins (pathogen + solarized — always installed)
+echo "Installing vim plugins..."
+"$HOME/.dotfiles/vim/install.sh"
+
+# Set zsh as default shell
+echo "Setting zsh as default shell..."
+chsh -s "$(command -v zsh)"
+
+# VMware shared folder symlinks (no-op on non-VMware VMs)
 [[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
 [[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
+echo ""
+echo "All done! Log out and back in for zsh to take effect."
+echo "Then run ~/.dotfiles/script/install for optional tool installs (aws, nvm, yq, etc.)"
