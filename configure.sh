@@ -83,11 +83,9 @@ plugins=(git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
 # export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 LOCALEOF
 
-    # WSL: append BROWSER setting with wslview
+    # WSL: append active BROWSER setting
     if [[ ${WSL:-false} == true ]]; then
         echo 'export BROWSER=/usr/bin/wslview  # WSL: open URLs in Windows browser' >> ~/.zshrc.local.pre
-    else
-        echo '# export BROWSER=/usr/bin/wslview  # WSL: open URLs in Windows browser' >> ~/.zshrc.local.pre
     fi
     echo "  created ~/.zshrc.local.pre"
 else
