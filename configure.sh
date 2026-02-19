@@ -47,6 +47,58 @@ chsh -s "$(command -v zsh)"
 [[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
 [[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
+# VM-local config files — created once, never overwritten, never committed
+echo "Creating VM-local config files..."
+
+if [[ ! -f ~/.zshrc.local.pre ]]; then
+    cat > ~/.zshrc.local.pre <<'LOCALEOF'
+# VM-local pre-config — loaded before oh-my-zsh.
+# Do NOT commit to dotfiles repo. Use for machine-specific PATH, env vars, etc.
+# Secrets (API keys, tokens) belong in .zshrc.local.post.
+
+# oh-my-zsh plugins for this VM.
+# Base defaults apply if this is omitted:
+#   git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
+# Add from these based on what's installed on this VM:
+#   Kubernetes:  kubectl helm kube-ps1 kubectx k9s
+#   Cloud:       aws gcloud azure
+#   Containers:  docker docker-compose
+#   Go:          golang
+#   Quality of life: zsh-autosuggestions zsh-completions zsh-navigation-tools
+plugins=(git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
+         zsh-autosuggestions zsh-completions zsh-navigation-tools)
+
+# Machine-specific PATH and environment — uncomment and adjust as needed:
+# export GOROOT=/usr/local/go
+# export GOPATH=$HOME/go
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+# export BROWSER=/usr/bin/wslview   # WSL: open URLs in Windows browser
+LOCALEOF
+    echo "  created ~/.zshrc.local.pre"
+else
+    echo "  ~/.zshrc.local.pre already exists — skipped"
+fi
+
+if [[ ! -f ~/.zshrc.local.post ]]; then
+    cat > ~/.zshrc.local.post <<'LOCALEOF'
+# VM-local post-config — loaded after oh-my-zsh and all dotfiles customizations.
+# Do NOT commit to dotfiles repo. Use for machine-specific overrides and secrets
+# (API keys, tokens, credentials) that must not be shared across VMs.
+
+# Examples:
+# export SOME_API_KEY=your-key-here
+# export IBMCLOUD_API_KEY=your-key-here
+# eval "$(some-tool shellenv)"
+
+# WSL: prepend the WSL lib path to avoid missing library errors
+# export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+LOCALEOF
+    echo "  created ~/.zshrc.local.post"
+else
+    echo "  ~/.zshrc.local.post already exists — skipped"
+fi
+
 echo ""
 echo "All done! Log out and back in for zsh to take effect."
+echo "Review ~/.zshrc.local.pre to add VM-specific plugins and PATH config."
 echo "Then run ~/.dotfiles/script/install for optional tool installs (aws, nvm, yq, etc.)"
