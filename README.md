@@ -27,11 +27,15 @@ Log out and back in after running for zsh to take effect.
 
 Two files are loaded by `.zshrc` but are **never committed** to this repo — create them manually on each VM as needed:
 
-**`~/.zshrc.local.pre`** — loaded before oh-my-zsh. Use for PATH or env vars that plugins may depend on.
+**`~/.zshrc.local.pre`** — loaded before oh-my-zsh. Use for PATH, env vars, and the plugin list.
 ```zsh
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+# Override the oh-my-zsh plugin list for this VM (optional — base defaults apply if omitted)
+plugins=(git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
+         kubectl helm aws docker golang)
 ```
 
 **`~/.zshrc.local.post`** — loaded last. Use for machine-specific overrides and secrets (API keys, tokens).
@@ -103,7 +107,20 @@ Each tool gets its own directory. Drop files in with these names and they're aut
 
 ## Plugins
 
-Oh-my-zsh plugins enabled:
+The base plugin set (used when `plugins` is not set in `~/.zshrc.local.pre`):
+
+| Plugin | Type | Notes |
+|---|---|---|
+| `git` | bundled | Git aliases and prompt info |
+| `git-flow-avh` | bundled | git-flow AVH edition support |
+| `zsh-syntax-highlighting` | custom | Command syntax colouring |
+| `sudo` | bundled | Double `Esc` to prepend sudo to current/last command |
+| `extract` | bundled | `x <archive>` — handles .tar.gz, .zip, .7z, etc. |
+| `colored-man-pages` | bundled | Colour highlighting in man pages |
+
+Set `plugins=(...)` in `~/.zshrc.local.pre` to add VM-specific plugins. All plugins below are suggestions — add only what's installed on the VM.
+
+Oh-my-zsh plugins available for use:
 
 | Plugin | Type | Notes |
 |---|---|---|
