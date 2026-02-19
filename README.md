@@ -151,6 +151,14 @@ Uses the **fishy** oh-my-zsh theme with a custom prompt overlay:
 
 ## WSL notes
 
-- `BROWSER` should be set to `wslview` in `~/.zshrc.local.pre`
-- WSL lib path (`/usr/lib/wsl/lib`) should be prepended in `~/.zshrc.local.post`
-- VMware shared folder symlinks (`/mnt/c`, `/mnt/d`) are created automatically by `configure.sh` if detected
+`configure.sh` detects WSL via `uname -r` and automatically:
+- Installs [`wslu`](https://github.com/wslutilities/wslu) (PPA version) — provides `wslview`, `wslpath`, `wslfetch`, etc.
+- Sets `BROWSER=/usr/bin/wslview` in `~/.zshrc.local.pre` so URLs open in the Windows default browser
+- Creates VMware shared folder symlinks (`/mnt/c`, `/mnt/d`) if `/mnt/hgfs` is detected
+
+On non-WSL VMs, `BROWSER` is written as a comment in `~/.zshrc.local.pre` for reference.
+
+If you need to add the WSL lib path (missing library errors), uncomment in `~/.zshrc.local.post`:
+```zsh
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+```

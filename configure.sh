@@ -43,6 +43,15 @@ echo "Installing vim plugins..."
 echo "Setting zsh as default shell..."
 chsh -s "$(command -v zsh)"
 
+# WSL-specific setup
+if uname -r | grep -qi microsoft; then
+    echo "WSL detected — installing wslu..."
+    sudo add-apt-repository -y ppa:wslutilities/wslu
+    sudo $PKG_MANAGER update
+    sudo $PKG_MANAGER install -y wslu
+    WSL=true
+fi
+
 # VMware shared folder symlinks (no-op on non-VMware VMs)
 [[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
 [[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
@@ -72,8 +81,14 @@ plugins=(git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
 # export GOROOT=/usr/local/go
 # export GOPATH=$HOME/go
 # export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-# export BROWSER=/usr/bin/wslview   # WSL: open URLs in Windows browser
 LOCALEOF
+
+    # WSL: append BROWSER setting with wslview
+    if [[ ${WSL:-false} == true ]]; then
+        echo 'export BROWSER=/usr/bin/wslview  # WSL: open URLs in Windows browser' >> ~/.zshrc.local.pre
+    else
+        echo '# export BROWSER=/usr/bin/wslview  # WSL: open URLs in Windows browser' >> ~/.zshrc.local.pre
+    fi
     echo "  created ~/.zshrc.local.pre"
 else
     echo "  ~/.zshrc.local.pre already exists — skipped"
