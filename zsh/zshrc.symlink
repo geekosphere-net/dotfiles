@@ -5,7 +5,7 @@
 : ${ZSH:=~/.oh-my-zsh}
 : ${ZSH_THEME:="fishy"}
 : ${ENABLE_CORRECTION:="true"}
-plugins=(git git-flow-avh docker kubectl zsh-completions zsh-autosuggestions zsh-navigation-tools aws)
+plugins=(git git-flow-avh helm docker kubectl zsh-completions zsh-autosuggestions zsh-navigation-tools aws gcloud zsh-syntax-highlighting golang)
 source $ZSH/oh-my-zsh.sh
 
 
@@ -35,13 +35,14 @@ done
 unset config_files
 
 # dircolors
-[[ -f ~/.dircolors ]] && eval `dircolors ~/.dircolors`
+[[ -f ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
 
 umask 0022
 #set bell-style none
-[[ -n ${TMUX} ]] && export TERM="screen-256color"
+[[ -n ${TMUX} ]] && export TERM="tmux-256color"
 
 # Local customizations
 [[ -f ~/.zshrc.local.post ]] && source ~/.zshrc.local.post
 
 true
+
