@@ -1,68 +1,117 @@
-#!/bin/bash
-# Update pkg lists
+#!/usr/bin/env bash
+# Fresh VM bootstrap — installs prerequisites and sets up dotfiles.
+# Usage: bash -c "$(curl -fsSL https://raw.githubusercontent.com/geekosphere-net/dotfiles/master/configure.sh)"
 
-PKG_MANAGER=$( command -v yum || command -v apt-get ) || echo "Neither yum nor apt-get found"
-[[ -z $PKG_MANAGER ]] && exit 255
+set -e
+
+PKG_MANAGER=$(command -v apt-get || command -v yum) || { echo "Neither apt-get nor yum found"; exit 255; }
 
 echo "Updating package lists..."
 sudo $PKG_MANAGER update
-# zsh install
-echo ''
-echo "Now installing zsh +..."
-echo ''
-sudo $PKG_MANAGER install -y vim curl wget less figlet zsh git net-tools 
 
-# Installing git completion
-echo ''
-echo "Now installing git and bash-completion..."
-sudo $PKG_MANAGER install git bash-completion -y
+echo "Installing core packages..."
+sudo $PKG_MANAGER install -y vim curl wget less figlet zsh git net-tools unzip
 
-echo ''
-echo "Now configuring git-completion..."
-GIT_VERSION=`git --version | awk '{print $3}'`
-URL="https://raw.github.com/git/git/v$GIT_VERSION/contrib/completion/git-completion.bash"
-echo ''
-echo "Downloading git-completion for git version: $GIT_VERSION..."
-if ! curl "$URL" --silent --output "$HOME/.git-completion.bash"; then
-	echo "ERROR: Couldn't download completion script. Make sure you have a working internet connection." && exit 1
-fi
+# oh-my-zsh (RUNZSH=no + CHSH=no prevents it hijacking the script mid-run)
+echo "Installing oh-my-zsh..."
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# oh-my-zsh install
-echo ''
-echo "Now installing oh-my-zsh..."
-echo ''
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# oh-my-zsh custom plugins
+echo "Installing oh-my-zsh plugins..."
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+git clone https://github.com/zsh-users/zsh-completions        "${ZSH_CUSTOM}/plugins/zsh-completions"
+git clone https://github.com/zsh-users/zsh-autosuggestions    "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
 
-# oh-my-zsh plugin install
-echo ''
-echo "Now installing oh-my-zsh plugins..."
-echo ''
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+# Dircolors solarized
+echo "Installing dircolors solarized..."
+wget -qO ~/.dircolors https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 
-# Bash color scheme
-echo ''
-echo "Now installing solarized dark WSL color scheme..."
-echo ''
-wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-mv dircolors.256dark ~/.dircolors
-
-# Pull down personal dotfiles
-echo "Now pulling down geekosphere-net dotfiles..."
+# Clone dotfiles
+echo "Cloning dotfiles..."
 git clone https://github.com/geekosphere-net/dotfiles.git ~/.dotfiles
-echo ''
-cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
-echo ''
-echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
-if [[ $? -eq 0 ]]
-then
-	echo "Successfully configured your environment with geekosphere-net's dotfiles..."
-else
-	echo "geekosphere-net's dotfiles were not applied successfully..." >&2
+
+# Run bootstrap (creates *.symlink → ~/.<name> symlinks, sets up gitconfig)
+echo "Configuring symlinks..."
+cd "$HOME/.dotfiles" && script/bootstrap
+
+# vim plugins (pathogen + solarized — always installed)
+echo "Installing vim plugins..."
+"$HOME/.dotfiles/vim/install.sh"
+
+# Set zsh as default shell
+echo "Setting zsh as default shell..."
+chsh -s "$(command -v zsh)"
+
+# WSL-specific setup
+if uname -r | grep -qi microsoft; then
+    echo "WSL detected — installing wslu..."
+    sudo add-apt-repository -y ppa:wslutilities/wslu
+    sudo $PKG_MANAGER update
+    sudo $PKG_MANAGER install -y wslu
+    WSL=true
 fi
 
-# VMware symlinks
+# VMware shared folder symlinks (no-op on non-VMware VMs)
 [[ -d /mnt/hgfs/c && ! -L /mnt/c ]] && sudo ln -s /mnt/hgfs/c /mnt/c
 [[ -d /mnt/hgfs/d && ! -L /mnt/d ]] && sudo ln -s /mnt/hgfs/d /mnt/d
 
+# VM-local config files — created once, never overwritten, never committed
+echo "Creating VM-local config files..."
+
+if [[ ! -f ~/.zshrc.local.pre ]]; then
+    cat > ~/.zshrc.local.pre <<'LOCALEOF'
+# VM-local pre-config — loaded before oh-my-zsh.
+# Do NOT commit to dotfiles repo. Use for machine-specific PATH, env vars, etc.
+# Secrets (API keys, tokens) belong in .zshrc.local.post.
+
+# oh-my-zsh plugins for this VM.
+# Base defaults apply if this is omitted:
+#   git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
+# Add from these based on what's installed on this VM:
+#   Kubernetes:  kubectl helm kube-ps1 kubectx k9s
+#   Cloud:       aws gcloud azure
+#   Containers:  docker docker-compose
+#   Go:          golang
+#   Quality of life: zsh-autosuggestions zsh-completions zsh-navigation-tools
+plugins=(git git-flow-avh zsh-syntax-highlighting sudo extract colored-man-pages
+         zsh-autosuggestions zsh-completions zsh-navigation-tools)
+
+# Machine-specific PATH and environment — uncomment and adjust as needed:
+# export GOROOT=/usr/local/go
+# export GOPATH=$HOME/go
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+LOCALEOF
+
+    # WSL: append active BROWSER setting
+    if [[ ${WSL:-false} == true ]]; then
+        echo 'export BROWSER=/usr/bin/wslview  # WSL: open URLs in Windows browser' >> ~/.zshrc.local.pre
+    fi
+    echo "  created ~/.zshrc.local.pre"
+else
+    echo "  ~/.zshrc.local.pre already exists — skipped"
+fi
+
+if [[ ! -f ~/.zshrc.local.post ]]; then
+    cat > ~/.zshrc.local.post <<'LOCALEOF'
+# VM-local post-config — loaded after oh-my-zsh and all dotfiles customizations.
+# Do NOT commit to dotfiles repo. Use for machine-specific overrides and secrets
+# (API keys, tokens, credentials) that must not be shared across VMs.
+
+# Examples:
+# export SOME_API_KEY=your-key-here
+# export IBMCLOUD_API_KEY=your-key-here
+# eval "$(some-tool shellenv)"
+
+# WSL: prepend the WSL lib path to avoid missing library errors
+# export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+LOCALEOF
+    echo "  created ~/.zshrc.local.post"
+else
+    echo "  ~/.zshrc.local.post already exists — skipped"
+fi
+
+echo ""
+echo "All done! Log out and back in for zsh to take effect."
+echo "Review ~/.zshrc.local.pre to add VM-specific plugins and PATH config."
+echo "Then run ~/.dotfiles/script/install for optional tool installs (aws, nvm, yq, etc.)"
